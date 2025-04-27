@@ -1,0 +1,178 @@
+// Database simulato di destinazioni
+export const destinations = [
+  {
+    id: "rome",
+    name: "Roma",
+    country: "Italia",
+    countryCode: "IT",
+    description: "La Città Eterna, famosa per il Colosseo, il Vaticano e la sua ricca storia.",
+    imageUrl: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?q=80&w=1600&auto=format&fit=crop",
+    currency: "EUR",
+    language: "Italiano",
+    timeZone: "GMT+1",
+    popularAttractions: ["Colosseo", "Vaticano", "Fontana di Trevi", "Pantheon", "Foro Romano"],
+    localPhrases: [
+      { phrase: "Buongiorno", translation: "Buon giorno" },
+      { phrase: "Grazie", translation: "Grazie" },
+      { phrase: "Per favore", translation: "Per favore" },
+      { phrase: "Scusi", translation: "Scusi" },
+      { phrase: "Quanto costa?", translation: "Quanto costa?" },
+    ],
+    facts: [
+      "Il Colosseo poteva ospitare fino a 80.000 spettatori.",
+      "La Fontana di Trevi raccoglie circa 3.000 euro al giorno in monete.",
+      "Roma ha più di 900 chiese.",
+      "Il Pantheon ha la più grande cupola in cemento non rinforzato del mondo.",
+      "La Città del Vaticano è il paese più piccolo del mondo.",
+    ],
+  },
+  {
+    id: "paris",
+    name: "Parigi",
+    country: "Francia",
+    countryCode: "FR",
+    description: "La Città dell'Amore, famosa per la Torre Eiffel, il Louvre e la sua cucina raffinata.",
+    imageUrl: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=1600&auto=format&fit=crop",
+    currency: "EUR",
+    language: "Francese",
+    timeZone: "GMT+1",
+    popularAttractions: ["Torre Eiffel", "Louvre", "Notre-Dame", "Montmartre", "Arco di Trionfo"],
+    localPhrases: [
+      { phrase: "Bonjour", translation: "Buongiorno" },
+      { phrase: "Merci", translation: "Grazie" },
+      { phrase: "S'il vous plaît", translation: "Per favore" },
+      { phrase: "Excusez-moi", translation: "Scusi" },
+      { phrase: "Combien ça coûte?", translation: "Quanto costa?" },
+    ],
+    facts: [
+      "La Torre Eiffel fu costruita per l'Esposizione Universale del 1889.",
+      "Il Louvre è il museo più visitato al mondo.",
+      "Parigi ha 37 ponti.",
+      "La metropolitana di Parigi ha 302 stazioni.",
+      "Parigi è anche chiamata 'La Ville Lumière' (La Città della Luce).",
+    ],
+  },
+  {
+    id: "london",
+    name: "Londra",
+    country: "Regno Unito",
+    countryCode: "GB",
+    description: "La capitale britannica, famosa per il Big Ben, il London Eye e i suoi musei gratuiti.",
+    imageUrl: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=1600&auto=format&fit=crop",
+    currency: "GBP",
+    language: "Inglese",
+    timeZone: "GMT+0",
+    popularAttractions: ["Big Ben", "London Eye", "British Museum", "Tower Bridge", "Buckingham Palace"],
+    localPhrases: [
+      { phrase: "Hello", translation: "Ciao" },
+      { phrase: "Thank you", translation: "Grazie" },
+      { phrase: "Please", translation: "Per favore" },
+      { phrase: "Excuse me", translation: "Scusi" },
+      { phrase: "How much is it?", translation: "Quanto costa?" },
+    ],
+    facts: [
+      "Il Big Ben è in realtà il nome della campana, non della torre.",
+      "La metropolitana di Londra è la più antica del mondo.",
+      "Buckingham Palace ha 775 stanze.",
+      "Il London Eye è la ruota panoramica più alta d'Europa.",
+      "I corvi della Torre di Londra sono protetti per legge.",
+    ],
+  },
+  {
+    id: "barcelona",
+    name: "Barcellona",
+    country: "Spagna",
+    countryCode: "ES",
+    description: "La capitale catalana, famosa per l'architettura di Gaudí, le spiagge e la vivace vita notturna.",
+    imageUrl: "https://images.unsplash.com/photo-1583422409516-2895a77efded?q=80&w=1600&auto=format&fit=crop",
+    currency: "EUR",
+    language: "Spagnolo, Catalano",
+    timeZone: "GMT+1",
+    popularAttractions: ["Sagrada Familia", "Park Güell", "Casa Batlló", "La Rambla", "Barri Gòtic"],
+    localPhrases: [
+      { phrase: "Hola", translation: "Ciao" },
+      { phrase: "Gracias", translation: "Grazie" },
+      { phrase: "Por favor", translation: "Per favore" },
+      { phrase: "Perdón", translation: "Scusi" },
+      { phrase: "¿Cuánto cuesta?", translation: "Quanto costa?" },
+    ],
+    facts: [
+      "La Sagrada Familia è in costruzione dal 1882.",
+      "Barcellona ha 4,5 km di spiagge.",
+      "Il Park Güell era originariamente progettato come comunità residenziale.",
+      "FC Barcelona è uno dei club di calcio più famosi al mondo.",
+      "La città ospita 9 edifici dichiarati Patrimonio dell'Umanità dall'UNESCO.",
+    ],
+  },
+  {
+    id: "tokyo",
+    name: "Tokyo",
+    country: "Giappone",
+    countryCode: "JP",
+    description: "La capitale giapponese, un mix affascinante di tradizione e innovazione tecnologica.",
+    imageUrl: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=1600&auto=format&fit=crop",
+    currency: "JPY",
+    language: "Giapponese",
+    timeZone: "GMT+9",
+    popularAttractions: ["Tokyo Skytree", "Tempio Senso-ji", "Shibuya Crossing", "Parco di Ueno", "Palazzo Imperiale"],
+    localPhrases: [
+      { phrase: "Konnichiwa", translation: "Buongiorno" },
+      { phrase: "Arigatou", translation: "Grazie" },
+      { phrase: "Onegaishimasu", translation: "Per favore" },
+      { phrase: "Sumimasen", translation: "Scusi" },
+      { phrase: "Ikura desu ka?", translation: "Quanto costa?" },
+    ],
+    facts: [
+      "Tokyo è la città più popolosa del mondo con oltre 37 milioni di abitanti nell'area metropolitana.",
+      "La città ospita oltre 200 grattacieli.",
+      "Tokyo ha più ristoranti stellati Michelin di qualsiasi altra città.",
+      "Il sistema ferroviario di Tokyo trasporta oltre 8 milioni di passeggeri al giorno.",
+      "Fino al 1868, Tokyo era conosciuta come Edo.",
+    ],
+  },
+  {
+    id: "new-york",
+    name: "New York",
+    country: "Stati Uniti",
+    countryCode: "US",
+    description: "La Grande Mela, famosa per i suoi grattacieli, Broadway e la Statua della Libertà.",
+    imageUrl: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?q=80&w=1600&auto=format&fit=crop",
+    currency: "USD",
+    language: "Inglese",
+    timeZone: "GMT-5",
+    popularAttractions: [
+      "Statua della Libertà",
+      "Empire State Building",
+      "Central Park",
+      "Times Square",
+      "Brooklyn Bridge",
+    ],
+    localPhrases: [
+      { phrase: "Hello", translation: "Ciao" },
+      { phrase: "Thank you", translation: "Grazie" },
+      { phrase: "Please", translation: "Per favore" },
+      { phrase: "Excuse me", translation: "Scusi" },
+      { phrase: "How much is it?", translation: "Quanto costa?" },
+    ],
+    facts: [
+      "New York è composta da cinque distretti: Manhattan, Brooklyn, Queens, The Bronx e Staten Island.",
+      "La metropolitana di New York ha 472 stazioni.",
+      "Central Park è più grande del Principato di Monaco.",
+      "Wall Street prende il nome da un muro costruito nel 1653 per proteggere la città.",
+      "Più di 800 lingue sono parlate a New York, rendendola la città linguisticamente più diversificata al mondo.",
+    ],
+  },
+]
+
+export const getDestination = (id: string) => {
+  return destinations.find((dest) => dest.id === id) || null
+}
+
+export const searchDestinations = (query: string) => {
+  if (!query) return []
+
+  const lowerQuery = query.toLowerCase()
+  return destinations.filter(
+    (dest) => dest.name.toLowerCase().includes(lowerQuery) || dest.country.toLowerCase().includes(lowerQuery),
+  )
+}
