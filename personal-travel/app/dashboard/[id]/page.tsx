@@ -30,6 +30,8 @@ import { ItineraryCard } from "@/components/itinerary-card"
 import { getTrip } from "@/lib/storage"
 import { getDestination } from "@/lib/destinations"
 import { useToast } from "@/components/ui/use-toast"
+import { FlightTicketsCard } from "@/components/flight-tickets-card"
+
 
 export default function DashboardPage() {
   const params = useParams()
@@ -255,72 +257,7 @@ export default function DashboardPage() {
             </TabsContent>
 
             <TabsContent value="biglietti">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Biglietti</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div className="border rounded-lg p-4">
-                      <h3 className="text-lg font-medium mb-2">Volo {trip.destination} - Andata</h3>
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div>
-                          <p className="text-sm text-muted-foreground">Data</p>
-                          <p className="font-medium">
-                            {new Date(trip.startDate).toLocaleDateString("it-IT", {
-                              day: "numeric",
-                              month: "long",
-                              year: "numeric",
-                            })}
-                          </p>
-                        </div>
-                        <div>
-                          <p className="text-sm text-muted-foreground">Orario</p>
-                          <p className="font-medium">10:30 - 12:45</p>
-                        </div>
-                        <div>
-                          <p className="text-sm text-muted-foreground">Compagnia</p>
-                          <p className="font-medium">Alitalia</p>
-                        </div>
-                        <div>
-                          <p className="text-sm text-muted-foreground">Prezzo</p>
-                          <p className="font-medium">€120,00</p>
-                        </div>
-                      </div>
-                    </div>
-                    {trip.endDate && (
-                      <div className="border rounded-lg p-4">
-                        <h3 className="text-lg font-medium mb-2">Volo {trip.destination} - Ritorno</h3>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                          <div>
-                            <p className="text-sm text-muted-foreground">Data</p>
-                            <p className="font-medium">
-                              {new Date(trip.endDate).toLocaleDateString("it-IT", {
-                                day: "numeric",
-                                month: "long",
-                                year: "numeric",
-                              })}
-                            </p>
-                          </div>
-                          <div>
-                            <p className="text-sm text-muted-foreground">Orario</p>
-                            <p className="font-medium">18:15 - 20:30</p>
-                          </div>
-                          <div>
-                            <p className="text-sm text-muted-foreground">Compagnia</p>
-                            <p className="font-medium">Alitalia</p>
-                          </div>
-                          <div>
-                            <p className="text-sm text-muted-foreground">Prezzo</p>
-                            <p className="font-medium">€135,00</p>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                    <Button className="w-full">Aggiungi biglietto</Button>
-                  </div>
-                </CardContent>
-              </Card>
+            <FlightTicketsCard tripId={trip.id} />
             </TabsContent>
 
             <TabsContent value="mangia">

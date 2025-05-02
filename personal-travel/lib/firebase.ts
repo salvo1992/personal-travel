@@ -1,7 +1,29 @@
-// Questo file sarà utilizzato per l'integrazione con Firebase
-// Per ora è un placeholder che simula le funzionalità di Firebase
+import { initializeApp, getApps, getApp } from "firebase/app"
+import { getFirestore } from "firebase/firestore"
+import { getStorage } from "firebase/storage"
 
-// Simulazione del database
+
+const firebaseConfig = {
+  apiKey: process.env.NEXT_PUBLIC_FB_API_KEY!,
+  authDomain: process.env.NEXT_PUBLIC_FB_AUTH_DOMAIN!,
+  projectId: process.env.NEXT_PUBLIC_FB_PROJECT_ID!,
+  storageBucket: process.env.NEXT_PUBLIC_FB_STORAGE_BUCKET!,
+  messagingSenderId: process.env.NEXT_PUBLIC_FB_MESSAGING_SENDER_ID!,
+  appId: process.env.NEXT_PUBLIC_FB_APP_ID!,
+}
+const app = getApps().length ? getApp() : initializeApp(firebaseConfig)
+
+export const db = getFirestore(app)
+export const storage = getStorage(app)
+
+
+
+
+
+
+
+
+
 const database: Record<string, any> = {
   users: {},
   trips: {},
@@ -40,7 +62,7 @@ export const getData = (collection: string, id?: string) => {
   return Promise.resolve(
     Object.entries(database[collection] || {}).map(([id, data]) => ({
       id,
-      ...data,
+      //...data,
     })),
   )
 }
