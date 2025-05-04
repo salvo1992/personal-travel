@@ -12,6 +12,8 @@ import { Footer } from "@/components/footer"
 import { Globe } from "lucide-react"
 import { useAuth } from "@/context/auth-context"
 import { useToast } from "@/components/ui/use-toast"
+import { registerUser } from "@/lib/firebase";
+
 
 export default function RegisterPage() {
   const [firstName, setFirstName] = useState("")
