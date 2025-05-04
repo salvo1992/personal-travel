@@ -1,37 +1,47 @@
-// lib/tickets.ts
 import {
-    addDoc,
     collection,
-    deleteDoc,
     doc,
-    getDocs,
-    onSnapshot,
     query,
+    onSnapshot,
+    addDoc,
+    deleteDoc,
     Timestamp,
   } from "firebase/firestore"
-  import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage"
+  import {
+    ref,
+    uploadBytes,
+    getDownloadURL,
+    deleteObject,
+  } from "firebase/storage"
   import { db, storage } from "@/lib/firebase"
   
   export interface FlightTicket {
-    id?: string            // Firestore id
+    id?: string
     airline: string
     from: string
     to: string
-    date: string           // ISO string
-    time: string           // "10:30"
-    price: number          // € in centesimi o float
+    date: string        // ISO
+    time: string        // HH:mm
+    price: number       // €
     imageUrl?: string
     createdAt?: Timestamp
   }
   
-  /* === CRUD === */
-  
-  export const ticketsRef = (tripId: string) =>
+  /* === Helpers === */
+  const ticketsRef = (tripId: string) =>
     collection(db, "trips", tripId, "tickets")
   
-  export const watchTickets = (tripId: string, cb: (t: FlightTicket[]) => void) =>
+  export const watchTickets = (
+    tripId: string,
+    cb: (t: FlightTicket[]) => void,
+  ) =>
     onSnapshot(query(ticketsRef(tripId)), (snap) =>
-      cb(snap.docs.map((d) => ({ id: d.id, ...(d.data() as FlightTicket) }))),
+      cb(
+        snap.docs.map((d) => ({
+          id: d.id,
+          ...(d.data() as FlightTicket),
+        })),
+      ),
     )
   
   export const addTicket = async (
@@ -53,15 +63,15 @@ import {
     })
   }
   
-  export const deleteTicket = async (tripId: string, ticket: FlightTicket) => {
-    // cancella immagine
-    if (ticket.imageUrl) {
+  export const deleteTicket = async (tripId: string, ticketId: string, imageUrl?: string) => {
+    if (imageUrl) {
       try {
-        await deleteObject(ref(storage, ticket.imageUrl))
-      } catch (e) {
-        console.warn("Impossibile eliminare immagine:", e)
+        await deleteObject(ref(storage, imageUrl))
+      } catch {
+        /* silent */
       }
     }
-    await deleteDoc(doc(db, "trips", tripId, "tickets", ticket.id!))
+    await deleteDoc(doc(db, "trips", tripId, "tickets", ticketId))
   }
+  
   

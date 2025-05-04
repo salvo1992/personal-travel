@@ -1,5 +1,5 @@
 "use client"
-
+import { makeTripCrud } from "@/lib/firestore-crud"
 import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -147,6 +147,8 @@ export function LuggageCard({ tripId, travelers }: LuggageCardProps) {
   const handleDeleteLuggage = (luggageId: string) => {
     setLuggages(luggages.filter((luggage) => luggage.id !== luggageId))
   }
+
+  const { watch, add, del } = makeTripCrud<Luggage>(tripId, "luggage", true)
 
   return (
     <Card className="border-tree-200 shadow-sm">

@@ -12,6 +12,8 @@ import {
   watchTickets,
 } from "@/lib/tickets"
 import { useToast } from "@/components/ui/use-toast"
+import { AffiliateButton } from "@/components/AffiliateButton"
+// Removed unused default import
 
 type Props = { tripId: string }
 
@@ -54,7 +56,7 @@ export function FlightTicketsCard({ tripId }: Props) {
       <CardHeader>
         <CardTitle>Biglietti aerei</CardTitle>
       </CardHeader>
-
+     
       <CardContent className="space-y-4">
         {/* elenco biglietti */}
         {tickets.map((tkt) => (
@@ -93,13 +95,25 @@ export function FlightTicketsCard({ tripId }: Props) {
                   Foto
                 </a>
               )}
+            
               <Button
                 size="icon"
                 variant="outline"
-                onClick={() => deleteTicket(tripId, tkt)}
-              >
+                onClick={() => deleteTicket(tripId, tkt.id!, tkt.imageUrl)}
+                  >
                 <Trash className="h-4 w-4" />
-              </Button>
+              </Button> 
+                <AffiliateButton
+             provider="SKYSCANNER"
+             label="Cerca su Skyscanner.COM"
+             params={{ from: tkt.from, to: tkt.to }}
+             />
+<AffiliateButton
+  provider="airbnb"
+  label="Airbnb"
+  params={{ city: tkt.to }}
+/>
+
             </div>
           </div>
         ))}

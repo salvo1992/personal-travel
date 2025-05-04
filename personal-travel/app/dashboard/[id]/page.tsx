@@ -31,7 +31,11 @@ import { getTrip } from "@/lib/storage"
 import { getDestination } from "@/lib/destinations"
 import { useToast } from "@/components/ui/use-toast"
 import { FlightTicketsCard } from "@/components/flight-tickets-card"
-
+import { AffiliateButton } from "@/components/AffiliateButton"
+import { MealsCard } from "@/components/meals-card"
+import { StaysCard } from "@/components/stays-card"
+import { CitiesCard } from "@/components/cities-card"
+import { makeTripCrud } from "@/lib/firestore-crud"
 
 export default function DashboardPage() {
   const params = useParams()
@@ -258,89 +262,25 @@ export default function DashboardPage() {
 
             <TabsContent value="biglietti">
             <FlightTicketsCard tripId={trip.id} />
+          
             </TabsContent>
 
             <TabsContent value="mangia">
               <Card>
-                <CardHeader>
-                  <CardTitle>Si mangia</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div className="border rounded-lg p-4">
-                      <h3 className="text-lg font-medium mb-2">Trattoria Da Luigi</h3>
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div>
-                          <p className="text-sm text-muted-foreground">Tipo</p>
-                          <p className="font-medium">Cucina {trip.country === "Italia" ? "romana" : "locale"}</p>
-                        </div>
-                        <div>
-                          <p className="text-sm text-muted-foreground">Prezzo medio</p>
-                          <p className="font-medium">€25,00</p>
-                        </div>
-                        <div>
-                          <p className="text-sm text-muted-foreground">Indirizzo</p>
-                          <p className="font-medium">Via del Corso, 123</p>
-                        </div>
-                        <div>
-                          <p className="text-sm text-muted-foreground">Orario</p>
-                          <p className="font-medium">12:00 - 23:00</p>
-                        </div>
-                      </div>
-                      <p className="mt-2 text-sm">Famoso per la cucina tradizionale.</p>
-                    </div>
-                    <Button className="w-full">Aggiungi ristorante</Button>
-                  </div>
-                </CardContent>
+                
+                 
+                <MealsCard tripId={trip.id} />
+                
               </Card>
-            </TabsContent>
+             </TabsContent>
 
             <TabsContent value="hotel">
               <Card>
-                <CardHeader>
-                  <CardTitle>Hotel</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div className="border rounded-lg p-4">
-                      <h3 className="text-lg font-medium mb-2">Hotel Centrale</h3>
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div>
-                          <p className="text-sm text-muted-foreground">Check-in</p>
-                          <p className="font-medium">
-                            {new Date(trip.startDate).toLocaleDateString("it-IT", {
-                              day: "numeric",
-                              month: "long",
-                            })}
-                          </p>
-                        </div>
-                        <div>
-                          <p className="text-sm text-muted-foreground">Check-out</p>
-                          <p className="font-medium">
-                            {trip.endDate
-                              ? new Date(trip.endDate).toLocaleDateString("it-IT", {
-                                  day: "numeric",
-                                  month: "long",
-                                })
-                              : "Da definire"}
-                          </p>
-                        </div>
-                        <div>
-                          <p className="text-sm text-muted-foreground">Prezzo</p>
-                          <p className="font-medium">€90,00/notte</p>
-                        </div>
-                        <div>
-                          <p className="text-sm text-muted-foreground">Indirizzo</p>
-                          <p className="font-medium">Via Roma, 45</p>
-                        </div>
-                      </div>
-                      <p className="mt-2 text-sm">
-                        Hotel 3 stelle nel centro città, a 10 minuti a piedi dalle principali attrazioni.
-                      </p>
-                    </div>
-                    <Button className="w-full">Aggiungi hotel</Button>
-                  </div>
-                </CardContent>
+             
+               
+                
+              <StaysCard tripId={trip.id} />
+                
               </Card>
             </TabsContent>
 
@@ -356,15 +296,8 @@ export default function DashboardPage() {
             </TabsContent>
 
             <TabsContent value="city">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Luoghi da visitare</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CityCard tripId={trip.id.toString()} destination={trip.destination} />
-                </CardContent>
-              </Card>
-            </TabsContent>
+  <CitiesCard tripId={trip.id.toString()} />
+</TabsContent>
 
             <TabsContent value="souvenir">
               <Card>
