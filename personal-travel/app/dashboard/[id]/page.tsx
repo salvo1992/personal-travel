@@ -35,7 +35,7 @@ import { AffiliateButton } from "@/components/AffiliateButton"
 import { MealsCard } from "@/components/meals-card"
 import { StaysCard } from "@/components/stays-card"
 import { CitiesCard } from "@/components/cities-card"
-import { makeTripCrud } from "@/lib/firestore-crud"
+import { makeUserTripCrud } from "@/lib/firestore-crud"
 
 export default function DashboardPage() {
   const params = useParams()

@@ -5,15 +5,24 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Trash, Plus } from "lucide-react"
-import {
-  addTicket,
-  deleteTicket,
-  FlightTicket,
-  watchTickets,
-} from "@/lib/tickets"
+import { makeUserTripCrud } from "@/lib/firestore-crud"
 import { useToast } from "@/components/ui/use-toast"
 import { AffiliateButton } from "@/components/AffiliateButton"
 // Removed unused default import
+export interface FlightTicket {
+  id?: string
+  airline: string
+  from: string
+  to: string
+  date: string        // ISO
+  time: string        // HH:mm
+  price: number       // €
+  imageUrl?: string
+  createdAt?: any
+}
+
+
+
 
 type Props = { tripId: string }
 
@@ -21,9 +30,12 @@ export function FlightTicketsCard({ tripId }: Props) {
   const [tickets, setTickets] = useState<FlightTicket[]>([])
   const [openForm, setOpenForm] = useState(false)
   const { toast } = useToast()
-
+const { watch, add, del } = makeUserTripCrud<FlightTicket>(tripId, "tickets", true)
   /* === realtime listener === */
-  useEffect(() => watchTickets(tripId, setTickets), [tripId])
+ useEffect(() => {
+    const unsubscribe = watch(setTickets)
+    return () => unsubscribe()
+  }, [tripId])
 
   /* === submit handler === */
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -31,17 +43,16 @@ export function FlightTicketsCard({ tripId }: Props) {
     const form = e.currentTarget
     const data = Object.fromEntries(new FormData(form)) as any
     try {
-      await addTicket(
-        tripId,
+       await add(
         {
-          airline: data.airline as string,
+          airline: data.airline,
           from: data.from,
           to: data.to,
           date: data.date,
           time: data.time,
           price: parseFloat(data.price),
         },
-        data.image as File,
+        data.image as File
       )
       toast({ title: "Biglietto aggiunto" })
       form.reset()
@@ -96,11 +107,11 @@ export function FlightTicketsCard({ tripId }: Props) {
                 </a>
               )}
             
-              <Button
+               <Button
                 size="icon"
                 variant="outline"
-                onClick={() => deleteTicket(tripId, tkt.id!, tkt.imageUrl)}
-                  >
+                onClick={() => del(tkt.id!, tkt.imageUrl)}
+              >
                 <Trash className="h-4 w-4" />
               </Button> 
                 <AffiliateButton

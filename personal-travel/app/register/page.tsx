@@ -1,71 +1,70 @@
-"use client"
+"use client";
 
-import type React from "react"
-
-import { useState } from "react"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Footer } from "@/components/footer"
-import { Globe } from "lucide-react"
-import { useAuth } from "@/context/auth-context"
-import { useToast } from "@/components/ui/use-toast"
-import { registerUser } from "@/lib/firebase";
-
+import { useAuth } from "@/context/auth-context";
+import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Footer } from "@/components/footer";
+import { Globe } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function RegisterPage() {
-  const [firstName, setFirstName] = useState("")
-  const [lastName, setLastName] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
-  const { register } = useAuth()
-  const router = useRouter()
-  const { toast } = useToast()
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const { registerUser } = useAuth();
+  const router = useRouter();
+  const { toast } = useToast();
 
   const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault()
-
+    e.preventDefault();
+  
+    // Controlla se le password coincidono
     if (password !== confirmPassword) {
       toast({
         title: "Errore",
         description: "Le password non coincidono",
         variant: "destructive",
-      })
-      return
+      });
+      return;
     }
-
-    setIsLoading(true)
-
+  
+    setIsLoading(true);
+  
     try {
-      const success = await register(`${firstName} ${lastName}`, email, password)
-
+      // Registra l'utente
+      const success = await registerUser(`${firstName} ${lastName}`, email, password);
+  
       if (success) {
         toast({
           title: "Registrazione completata",
           description: "Il tuo account è stato creato con successo",
-        })
-        router.push("/destinations")
+        });
+        router.push("/destinations"); // Redirect to a page after registration
       } else {
         toast({
           title: "Errore di registrazione",
           description: "Non è stato possibile completare la registrazione",
           variant: "destructive",
-        })
+        });
       }
     } catch (error) {
       toast({
         title: "Errore",
         description: "Si è verificato un errore durante la registrazione",
         variant: "destructive",
-      })
+      });
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
+  
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -87,10 +86,7 @@ export default function RegisterPage() {
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label
-                    htmlFor="firstName"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  >
+                  <label htmlFor="firstName" className="text-sm font-medium leading-none">
                     Nome
                   </label>
                   <Input
@@ -103,10 +99,7 @@ export default function RegisterPage() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label
-                    htmlFor="lastName"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  >
+                  <label htmlFor="lastName" className="text-sm font-medium leading-none">
                     Cognome
                   </label>
                   <Input
@@ -120,19 +113,13 @@ export default function RegisterPage() {
                 </div>
               </div>
               <div className="space-y-2">
-                <label
-                  htmlFor="email"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
+                <label htmlFor="email" className="text-sm font-medium leading-none">
                   Email
                 </label>
                 <Input
                   id="email"
                   placeholder="nome@esempio.com"
                   type="email"
-                  autoCapitalize="none"
-                  autoComplete="email"
-                  autoCorrect="off"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={isLoading}
@@ -140,10 +127,7 @@ export default function RegisterPage() {
                 />
               </div>
               <div className="space-y-2">
-                <label
-                  htmlFor="password"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
+                <label htmlFor="password" className="text-sm font-medium leading-none">
                   Password
                 </label>
                 <Input
@@ -156,10 +140,7 @@ export default function RegisterPage() {
                 />
               </div>
               <div className="space-y-2">
-                <label
-                  htmlFor="confirmPassword"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
+                <label htmlFor="confirmPassword" className="text-sm font-medium leading-none">
                   Conferma Password
                 </label>
                 <Input
@@ -188,5 +169,5 @@ export default function RegisterPage() {
       </main>
       <Footer />
     </div>
-  )
+  );
 }

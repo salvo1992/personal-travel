@@ -7,7 +7,7 @@ export const saveTrip = (trip: any) => {
     const trips = getTrips()
 
     // Aggiungi o aggiorna il viaggio
-    const existingIndex = trips.findIndex((t) => t.id === trip.id)
+    const existingIndex = trips.findIndex((t: any) => t.id === trip.id)
 
     if (existingIndex >= 0) {
       trips[existingIndex] = { ...trips[existingIndex], ...trip, updatedAt: new Date().toISOString() }

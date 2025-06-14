@@ -1,5 +1,5 @@
 "use client"
-import { makeTripCrud } from "@/lib/firestore-crud"
+import { makeUserTripCrud } from "@/lib/firestore-crud"
 import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -34,6 +34,8 @@ export function LuggageCard({ tripId, travelers }: LuggageCardProps) {
   const [newLuggageOwner, setNewLuggageOwner] = useState("Io")
   const [selectedLuggage, setSelectedLuggage] = useState<Luggage | null>(null)
   const [newItemName, setNewItemName] = useState("")
+const [crud, setCrud] = useState<ReturnType<typeof makeUserTripCrud<Luggage>> | null>(null)
+
 
   // Genera lista di viaggiatori
   const travelersOptions = ["Io"]
@@ -71,6 +73,15 @@ export function LuggageCard({ tripId, travelers }: LuggageCardProps) {
 
     fetchLuggages()
   }, [tripId])
+
+  useEffect(() => {
+  try {
+    const instance = makeUserTripCrud<Luggage>(tripId, "luggage", true)
+    setCrud(instance)
+  } catch (error) {
+    console.error("Errore CRUD:", error)
+  }
+}, [tripId])
 
   const handleAddLuggage = () => {
     if (!newLuggageName.trim()) return
@@ -148,7 +159,8 @@ export function LuggageCard({ tripId, travelers }: LuggageCardProps) {
     setLuggages(luggages.filter((luggage) => luggage.id !== luggageId))
   }
 
-  const { watch, add, del } = makeTripCrud<Luggage>(tripId, "luggage", true)
+ if (!crud) return <p>Caricamento CRUD...</p>
+
 
   return (
     <Card className="border-tree-200 shadow-sm">

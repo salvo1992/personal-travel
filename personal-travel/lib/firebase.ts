@@ -4,6 +4,7 @@ import { getStorage } from "firebase/storage"
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
 
+
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FB_API_KEY!,
   authDomain: process.env.NEXT_PUBLIC_FB_AUTH_DOMAIN!,
@@ -17,4 +18,7 @@ const app = getApps().length ? getApp() : initializeApp(firebaseConfig)
 export const auth = getAuth(app)
 export const db = getFirestore(app)
 export const storage = getStorage(app)
+
+// Funzione per login utente per il momento usando delle chivi per test come admin e pasword
+
 

@@ -4,7 +4,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Trash, Plus } from "lucide-react"
-import { makeTripCrud } from "@/lib/firestore-crud"
+import { makeUserTripCrud } from "@/lib/firestore-crud"
 import { useToast } from "@/components/ui/use-toast"
 import { AffiliateButton } from "@/components/AffiliateButton"
 
@@ -17,7 +17,7 @@ export interface Meal {
 }
 
 export function MealsCard({ tripId }: { tripId: string }) {
-  const api = useMemo(() => makeTripCrud<Meal>(tripId, "meals"), [tripId])
+  const api = useMemo(() => makeUserTripCrud<Meal>(tripId, "meals"), [tripId])
   const [meals, setMeals] = useState<Meal[]>([])
   const [open, setOpen] = useState(false)
   const { toast } = useToast()
